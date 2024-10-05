@@ -1,0 +1,34 @@
+CREATE TABLE Users(
+	UserId Int PRIMARY KEY  IDENTITY(1,1),
+	UserName NVARCHAr(50) unique not null,
+	FirstName nvarchar(50) ,
+	LastName nvarchar(50),
+	Email nvarchar(50) unique not null,
+	HashedPassword nvarchar(255) not null
+)
+
+
+alter table Users
+add UserType int ;
+
+CREATE TABLE Posts(
+	PostId Int Primary Key IDENTITY(1,1),
+	UserId int ,
+	Title NVARCHAR(245) Not  null,
+	Image VARBINARY(MAX),
+	CreatedOn DATETIME DEFAULT GETDATE(),
+	UpdatedOn DATETIME,
+	Category NVARCHAR(255),
+	FOREIGN KEY (UserId) REFERENCES  Users(UserId)
+)
+
+
+CREATE TABLE Comments(
+	CommentId INT PRIMARY KEY IDENTITY(1,1),
+	PostId INT,
+	UserId INT,
+	Text NVARCHAR(255) not null,
+	CreatedOn  DATETIME DEFAULT  GETDATE(),
+	FOREIGN KEY (PostId) REFERENCES Posts(PostId),
+	FOREIGN KEY (UseriD) REFERENCES Users(UserId)
+)
